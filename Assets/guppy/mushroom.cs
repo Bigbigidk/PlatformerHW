@@ -27,7 +27,20 @@ public class mushroom : MonoBehaviour
 
         callisbite = GameObject.Find("Guppy").GetComponent<playermove>().isbite;
     }
-   
+
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+
+        Debug.Log("Overlapping");
+        if (collision.gameObject.transform.name == "Guppy" && callisbite == 1)
+        {
+            score.scoreValue += 10;
+            UnityEngine.Object.Destroy(this.gameObject, 0);
+        }
+
+    }
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {
