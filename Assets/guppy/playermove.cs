@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class playermove : MonoBehaviour
 {
+
     Rigidbody2D myBody;
     float horizontalMove;
     public float speed;
     public float castDist = 0.2f;
     bool grounded = false;
-    bool isbite = false;
-
+    public int isbite = 0;
 
     public float jumpLimit = 2f;
     public float gravityScale = 5f;
@@ -33,27 +33,26 @@ public class playermove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("x"))
+        {
+            myAnim.SetBool("isbite", true);
+            isbite = 1;
+
+        }
+
+        if (Input.GetKeyUp("x"))
+        {
+            myAnim.SetBool("isbite", false);
+            isbite = 0;
+        }
+
         horizontalMove = Input.GetAxis("Horizontal") * speed;
         if (Input.GetButtonDown("Jump") && grounded)
         {
             jump = true;
         }
 
-        if (Input.GetKeyDown("space"))
-        {
-            myAnim.SetBool("isbite", true);
-            isbite = true;
-
-        }
-
-      //  if (isbite == true)
-        //{
-       //     Debug.Log("is Biting");
-         //   isbite = false;
-         //   myAnim.SetBool("isbite", false);
-           
-       // }
-
+ 
     }
 
 
@@ -62,6 +61,15 @@ public class playermove : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+
+        if (Input.GetKey("x"))
+        {
+
+            isbite = 1;
+
+        }
+
         HorizontalMove(horizontalMove);
 
 
@@ -105,10 +113,10 @@ public class playermove : MonoBehaviour
 
 
 
+
+
         //Debug.Log(hit.transform.name);
     }
-
-
 
 
     void HorizontalMove(float toMove)
